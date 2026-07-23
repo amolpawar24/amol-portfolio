@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AMOL PORTFOLIO
 
 A modern and responsive portfolio web application built using Next.js, React.js, TypeScript, and SCSS.
@@ -358,3 +359,7 @@ Frontend Developer
 ## License
 
 This project is developed for educational and portfolio purposes.
+=======
+# amol-portfolio
+Personal portfolio website highlighting my work, technical skills, and projects — built to demonstrate my development experience.
+>>>>>>> f7f930b92baab9cd52653d4cedeb857d14684593
