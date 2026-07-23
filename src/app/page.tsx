@@ -1,66 +1,144 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+
+import Sidebar from "@/components/Sidebar/Sidebar";
+import ThemeSwitcher from "@/components/ThemeSwitcher/ThemeSwitcher";
+
+import Home from "@/features/Home/index.Home";
+import Profile from "@/features/Profile/index.Profile";
+import TechStack from "@/features/TechStack/index.TechStack";
+import Services from "@/features/Services/index.Services";
+import Projects from "@/features/Projects/index.Projects";
+import AllProjects from "@/features/Projects/AllProjects";
+import Connect from "@/features/Connect/index.Connect";
+import Certifications from "@/features/Certifications/index.Certifications";
+
+export default function Main() {
+
+  /* ================= STATE ================= */
+  const [activeSection, setActiveSection] = useState("Home");
+  const [prevSection, setPrevSection] = useState<string | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  /* ================= NAVIGATION ================= */
+  const handleNavigate = (section: string) => {
+
+    // Prevent re-render on same page click
+    if (section === activeSection) {
+      setSidebarOpen(false);
+      return;
+    }
+
+    // Save previous section for animation
+    setPrevSection(activeSection);
+
+    // Set new active section
+    setActiveSection(section);
+
+    // Close sidebar automatically on mobile
+    setSidebarOpen(false);
+  };
+
+  /* ================= SECTION CLASSES ================= */
+  const sectionClass = (name: string, extra: string) => {
+
+    // Current active page
+    if (name === activeSection) {
+      return `${extra} section active`;
+    }
+
+    // Previous page
+    if (name === prevSection) {
+      return `${extra} section back-section`;
+    }
+
+    // Hidden pages
+    return `${extra} section`;
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="main-container">
+
+      {/* ================= SIDEBAR ================= */}
+      <Sidebar
+        activeSection={activeSection}
+        onNavigate={handleNavigate}
+        open={sidebarOpen}
+        setOpen={setSidebarOpen}
+      />
+
+      {/* ================= THEME SWITCHER ================= */}
+      <ThemeSwitcher />
+
+      {/* ================= HOME ================= */}
+      <section
+        className={sectionClass("Home", "home")}
+        id="Home"
+      >
+        <Home />
+      </section>
+
+      {/* ================= PROFILE ================= */}
+      <section
+        className={sectionClass("Profile", "profile")}
+        id="Profile"
+      >
+        <Profile />
+      </section>
+
+      {/* ================= CERTIFICATIONS ================== */}
+      <section
+        className={sectionClass("Certifications", "certifications")}
+        id="Certifications"
+      >
+        <Certifications />
+      </section>
+
+      {/* ================= TECH STACK ================= */}
+      <section
+        className={sectionClass("TechStack", "techstack")}
+        id="TechStack"
+      >
+        <TechStack />
+      </section>
+
+      {/* ================= SERVICES ================= */}
+      <section
+        className={sectionClass("Services", "services")}
+        id="Services"
+      >
+        <Services />
+      </section>
+
+      {/* ================= PROJECTS ================= */}
+      <section
+        className={sectionClass("Projects", "projects")}
+        id="Projects"
+      >
+        <Projects
+          onViewAll={() => handleNavigate("AllProjects")}
         />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+
+      {/* ================= ALL PROJECTS ================= */}
+      <section
+        className={sectionClass("AllProjects", "projects")}
+        id="AllProjects"
+      >
+        <AllProjects
+          onBack={() => handleNavigate("Projects")}
+        />
+      </section>
+
+      {/* ================= CONNECT ================= */}
+      <section
+        className={sectionClass("Connect", "connect")}
+        id="Connect"
+      >
+        <Connect />
+      </section>
+
+    </main>
   );
 }
