@@ -62,9 +62,9 @@ const Connect = () => {
 
       const response = await emailjs.send(
 
-        "service_2404",
+        "service_24",
 
-        "template_2404",
+        "template_24",
 
         {
 
@@ -79,7 +79,7 @@ const Connect = () => {
           message: values.message,
         },
 
-        "TC7NUKSfYhOufN3tJ"
+        "7Ghg9djmLFK05zzsr"
       );
 
       //* ================= SUCCESS TOAST =================
