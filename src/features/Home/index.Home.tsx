@@ -29,7 +29,7 @@ export default function Home() {
           </p>
 
           <a
-            href="https://amolpawar.carrd.co/"
+            href="https://amolpawar24.carrd.co/"
             className="btn"
             target="_blank"
           >
